@@ -1,6 +1,7 @@
 import express, { json } from "express"
 import dotenv from "dotenv"
 import authRoutes from "./routes/authRoutes.js"
+import unAuthRoutes from "./routes/unAuthRoutes.js"
 import middleware from "./middleware/middleware.js"
 import cors from "cors"
 
@@ -20,10 +21,11 @@ app.use(
 )
 
 // routes
-app.use("/auth", middleware, authRoutes)
+app.use("/auth", authRoutes)
+app.use("/", unAuthRoutes)
 
 app.listen(PORT, (req, res) => {
   console.info(`Server is running on ${PORT}`)
 })
 
-// TODO: Setup prisma and docker ASAP to start working on apis
+// : Setup prisma and docker ASAP to start working on apis : DONE
