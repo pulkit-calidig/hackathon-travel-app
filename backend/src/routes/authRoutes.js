@@ -2,6 +2,7 @@ import { Router } from "express"
 import bcrypt from "bcryptjs"
 import prisma from "../prismaClient.js"
 import jwt from "jsonwebtoken"
+
 const router = Router()
 
 // sign up
