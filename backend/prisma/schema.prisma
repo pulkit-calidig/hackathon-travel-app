@@ -18,16 +18,16 @@ model Users {
     username    String      @unique
     email       String      @unique
     password    String
-    bookings Booking[]
-    reviews  Review[]
-    wishlist Wishlist[]
+    bookings    Booking[]
+    reviews     Review[]
+    wishlist    Wishlist[]
 }
 
 model Package {
-  id          Int    @id @default(autoincrement())
-  name        PackageType
-  price       Float
-  description String?
+  id          Int           @id @default(autoincrement())
+  country     String
+  city        String
+  packages    Json          // Store package details as JSON
   bookings    Booking[]
   reviews     Review[]
 }
@@ -94,11 +94,6 @@ model Wishlist {
 
   user          Users           @relation(fields: [userId], references: [id])
   destination   Destination     @relation(fields: [destinationId], references: [id])
-}
-
-enum Role {
-  USER
-  ADMIN
 }
 
 enum PackageType {
