@@ -1,7 +1,4 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
-
--- CreateEnum
 CREATE TYPE "PackageType" AS ENUM ('STANDARD', 'ECONOMY', 'LUXURY');
 
 -- CreateEnum
@@ -23,9 +20,8 @@ CREATE TABLE "Users" (
 -- CreateTable
 CREATE TABLE "Package" (
     "id" SERIAL NOT NULL,
-    "name" "PackageType" NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
-    "description" TEXT,
+    "country" TEXT NOT NULL,
+    "packages" JSONB NOT NULL,
 
     CONSTRAINT "Package_pkey" PRIMARY KEY ("id")
 );
