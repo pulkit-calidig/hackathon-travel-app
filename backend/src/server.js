@@ -4,6 +4,7 @@ import authRoutes from "./routes/authRoutes.js"
 import unAuthRoutes from "./routes/unAuthRoutes.js"
 import bookingRoutes from "./routes/bookingRoutes.js"
 import reviewRoutes from "./routes/reviewRoutes.js"
+import wishlistRoutes from "./routes/wishlistRoutes.js"
 import middleware from "./middleware/middleware.js"
 import cors from "cors"
 
@@ -28,6 +29,7 @@ app.use("/auth", authRoutes)
 app.use("/", unAuthRoutes)
 app.use("/booking", middleware, bookingRoutes)
 app.use("/review", middleware, reviewRoutes)
+app.use("/wishlist", middleware, wishlistRoutes)
 
 // starter
 app.listen(PORT, (req, res) => {
@@ -39,5 +41,5 @@ app.listen(PORT, (req, res) => {
 // : Make destination and package apis : DONE
 // : Make booking api : DONE
 // : Make review api : DONE
-// TODO: Make wishlist api
+// : Make wishlist api : DONE
 // TODO: Make payment api
