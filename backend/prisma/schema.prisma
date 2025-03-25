@@ -14,9 +14,9 @@ datasource db {
 }
 
 model Users {
-    id          Int         @id @default(autoincrement())
-    username    String      @unique
-    email       String      @unique
+    id          Int             @id @default(autoincrement())
+    username    String          @unique
+    email       String          @unique
     password    String
     bookings    Booking[]
     reviews     Review[]
@@ -24,16 +24,16 @@ model Users {
 }
 
 model Package {
-  id          Int           @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   country     String
   city        String
-  packages    Json          // Store package details as JSON
+  packages    Json              // Store package details as JSON
   bookings    Booking[]
   reviews     Review[]
 }
 
 model Destination {
-  id          Int    @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   name        String
   country     String
   description String?
@@ -42,49 +42,49 @@ model Destination {
 }
 
 model Booking {
-  id            Int       @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   userId        Int
   packageId     Int
   destinationId Int
   startDate     DateTime
   endDate       DateTime
-  status        BookingStatus @default(PENDING)
+  status        BookingStatus   @default(PENDING)
   itinerary     Itinerary[]
   payment       Payment?
 
-  user          Users        @relation(fields: [userId], references: [id])
-  package       Package      @relation(fields: [packageId], references: [id])
-  destination   Destination  @relation(fields: [destinationId], references: [id])
+  user          Users           @relation(fields: [userId], references: [id])
+  package       Package         @relation(fields: [packageId], references: [id])
+  destination   Destination     @relation(fields: [destinationId], references: [id])
 }
 
 model Itinerary {
-  id            Int         @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   bookingId     Int
   day           Int
   activity      String
   location      String?
 
-  booking       Booking     @relation(fields: [bookingId], references: [id])
+  booking       Booking         @relation(fields: [bookingId], references: [id])
 }
 
 model Review {
-  id        Int         @id @default(autoincrement())
+  id        Int                 @id @default(autoincrement())
   userId    Int
   packageId Int
   rating    Int
   comment   String?
 
-  user      Users       @relation(fields: [userId], references: [id])
-  package   Package     @relation(fields: [packageId], references: [id])
+  user      Users               @relation(fields: [userId], references: [id])
+  package   Package             @relation(fields: [packageId], references: [id])
 }
 
 model Payment {
-  id        Int   @id @default(autoincrement())
-  bookingId Int   @unique
+  id        Int                 @id @default(autoincrement())
+  bookingId Int                 @unique
   amount    Float
-  status    PaymentStatus @default(PENDING)
+  status    PaymentStatus       @default(PENDING)
 
-  booking   Booking  @relation(fields: [bookingId], references: [id])
+  booking   Booking             @relation(fields: [bookingId], references: [id])
 }
 
 model Wishlist {
