@@ -48,6 +48,7 @@ model Booking {
   destinationId Int
   startDate     DateTime
   endDate       DateTime
+  isDeleted     DateTime?
   status        BookingStatus   @default(PENDING)
   itinerary     Itinerary[]
   payment       Payment?
