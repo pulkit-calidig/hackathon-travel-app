@@ -21,6 +21,7 @@ CREATE TABLE "Users" (
 CREATE TABLE "Package" (
     "id" SERIAL NOT NULL,
     "country" TEXT NOT NULL,
+    "city" TEXT NOT NULL,
     "packages" JSONB NOT NULL,
 
     CONSTRAINT "Package_pkey" PRIMARY KEY ("id")
@@ -44,6 +45,7 @@ CREATE TABLE "Booking" (
     "destinationId" INTEGER NOT NULL,
     "startDate" TIMESTAMP(3) NOT NULL,
     "endDate" TIMESTAMP(3) NOT NULL,
+    "isDeleted" TIMESTAMP(3),
     "status" "BookingStatus" NOT NULL DEFAULT 'PENDING',
 
     CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
