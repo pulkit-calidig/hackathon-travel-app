@@ -43,3 +43,5 @@ app.listen(PORT, (req, res) => {
 // : Make review api : DONE
 // : Make wishlist api : DONE
 // TODO: Make payment api
+// : Change schema for booking and set isDeleted when user delets a booking : DONE
+// : Make completed CRUD apis for booking : DONE
