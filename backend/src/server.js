@@ -45,3 +45,4 @@ app.listen(PORT, (req, res) => {
 // TODO: Make payment api
 // : Change schema for booking and set isDeleted when user delets a booking : DONE
 // : Make completed CRUD apis for booking : DONE
+// : Edit package ids so each type has a separate id : DONE
