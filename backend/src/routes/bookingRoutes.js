@@ -93,7 +93,7 @@ router.put("/delete/:id", async (req, res) => {
       where: { id: parseInt(id) },
       data: {
         status: "CANCELED",
-        isDeleted: new Date(Date.now()),
+        deletedAt: new Date(Date.now()),
       },
     })
     res.json({ message: "Booking has been canceled !!" })
