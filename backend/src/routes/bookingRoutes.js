@@ -6,12 +6,25 @@ const router = Router()
 // create
 router.post("/make", async (req, res) => {
   try {
-    const { userId, startDate, endDate, packageId, destinationId } = req.body
+    const { userId, startDate, endDate, packageId, destinationId, guests } =
+      req.body
 
-    if (!userId || !startDate || !endDate || !packageId || !destinationId)
+    if (
+      !userId ||
+      !startDate ||
+      !endDate ||
+      !packageId ||
+      !destinationId ||
+      !guests
+    )
       return res
         .status(404)
         .json({ message: "All fields are required for make a booking" })
+
+    if (startDate < Date.now())
+      return res
+        .status(401)
+        .json({ message: "Starting date cannot be in the past !!" })
 
     if (req.userId !== parseInt(userId))
       return res.status(403).json({ message: "Unauthorized. Forbidden Access" })
@@ -23,6 +36,7 @@ router.post("/make", async (req, res) => {
         endDate,
         packageId,
         destinationId,
+        guests,
       },
     })
 
@@ -61,10 +75,23 @@ router.get("/getBookings", async (req, res) => {
 router.put("/edit/:id", async (req, res) => {
   try {
     const { id } = req.params
-    const { packageId, destinationId, status, startDate, endDate } = req.body
+    const { packageId, destinationId, status, startDate, endDate, guests } =
+      req.body
 
-    if (!packageId || !destinationId || !status || !startDate || !endDate)
+    if (
+      !packageId ||
+      !destinationId ||
+      !status ||
+      !startDate ||
+      !endDate ||
+      !guests
+    )
       return res.status(404).json({ message: "All fields are requierd !!" })
+
+    if (startDate < Date.now())
+      return res
+        .status(401)
+        .json({ message: "Starting date cannot be in the past !!" })
 
     await prisma.booking.update({
       where: { id: parseInt(id) },
@@ -74,6 +101,7 @@ router.put("/edit/:id", async (req, res) => {
         status,
         startDate,
         endDate,
+        guests,
       },
     })
 
