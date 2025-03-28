@@ -29,7 +29,6 @@ model Package {
   city        String
   packages    Json              // Store package details as JSON
   bookings    Booking[]
-  reviews     Review[]
 }
 
 model Destination {
@@ -50,33 +49,24 @@ model Booking {
   endDate       DateTime
   deletedAt     DateTime?
   status        BookingStatus   @default(PENDING)
-  itinerary     Itinerary[]
+  reviews       Review[]
   payment       Payment?
+  guests        Int             @default(1)
 
   user          Users           @relation(fields: [userId], references: [id])
   package       Package         @relation(fields: [packageId], references: [id])
   destination   Destination     @relation(fields: [destinationId], references: [id])
 }
 
-model Itinerary {
-  id            Int             @id @default(autoincrement())
-  bookingId     Int
-  day           Int
-  activity      String
-  location      String?
-
-  booking       Booking         @relation(fields: [bookingId], references: [id])
-}
-
 model Review {
-  id        Int                 @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   userId    Int
-  packageId Int
+  bookingId Int
   rating    Int
   comment   String?
 
-  user      Users               @relation(fields: [userId], references: [id])
-  package   Package             @relation(fields: [packageId], references: [id])
+  user      Users    @relation(fields: [userId], references: [id])
+  booking   Booking  @relation(fields: [bookingId], references: [id])
 }
 
 model Payment {
