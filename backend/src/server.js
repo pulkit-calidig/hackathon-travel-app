@@ -42,7 +42,15 @@ app.listen(PORT, (req, res) => {
 // : Make booking api : DONE
 // : Make review api : DONE
 // : Make wishlist api : DONE
-// TODO: Make payment api
 // : Change schema for booking and set isDeleted when user delets a booking : DONE
 // : Make completed CRUD apis for booking : DONE
 // : Edit package ids so each type has a separate id : DONE
+// : Manage guests while booking : DONE
+// TODO: Make payment api
+// TODO: Keep id in destination and package related
+// TODO: Change status from string to int
+// TODO: Change package json to new table
+// TODO: Validation in all apis
+// : Review only when trip has ended : DONE
+// TODO: Delete columns from user table
+// : Only book a trip if startDate is not in past : DONE
