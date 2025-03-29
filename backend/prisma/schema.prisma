@@ -14,21 +14,37 @@ datasource db {
 }
 
 model Users {
-    id          Int             @id @default(autoincrement())
-    username    String          @unique
-    email       String          @unique
-    password    String
-    bookings    Booking[]
-    reviews     Review[]
-    wishlist    Wishlist[]
+  id          Int             @id @default(autoincrement())
+  username    String          @unique
+  email       String          @unique
+  password    String
+  bookings    Booking[]
+  reviews     Review[]
+  wishlist    Wishlist[]
+}
+
+model Country {
+  id       Int                  @id @default(autoincrement())
+  name     String               @unique
+  cities   City[]
+}
+
+model City {
+  id        Int                 @id @default(autoincrement())
+  name      String              @unique
+  countryId Int
+  country   Country             @relation(fields: [countryId], references: [id])
+  packages  Package[]
 }
 
 model Package {
   id          Int               @id @default(autoincrement())
-  country     String
-  city        String
-  packages    Json              // Store package details as JSON
-  bookings    Booking[]
+  cityId      Int
+  type        PackageType
+  price       Float
+  description String
+  city        City              @relation(fields: [cityId], references: [id])
+  booking     Booking[]
 }
 
 model Destination {
