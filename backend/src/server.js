@@ -52,5 +52,5 @@ app.listen(PORT, (req, res) => {
 // TODO: Change package json to new table
 // TODO: Validation in all apis
 // : Review only when trip has ended : DONE
-// TODO: Delete columns from user table
+// : Delete columns from user table : NOT NEEDED
 // : Only book a trip if startDate is not in past : DONE
