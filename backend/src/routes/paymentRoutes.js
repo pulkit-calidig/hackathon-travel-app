@@ -5,7 +5,7 @@ const router = Router()
 
 router.post("/pay", async (req, res) => {
   try {
-    const { bookingId, amount } = req.body
+    const { bookingId } = req.body
 
     const booking = await prisma.booking.findUnique({
       where: { id: bookingId },
@@ -17,6 +17,12 @@ router.post("/pay", async (req, res) => {
         .json({ message: "No booking found with this id !!" })
 
     try {
+      const packagePrice = await prisma.package.findUnique({
+        where: { id: booking.packageId },
+      })
+      const totalGuests = booking.guests
+      const amount = packagePrice.price * totalGuests
+
       const payment = await prisma.payment.create({
         data: {
           bookingId,
