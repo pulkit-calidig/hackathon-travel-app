@@ -5,12 +5,11 @@ const router = Router()
 
 // get packages
 router.get("/packages", async (req, res) => {
-  const { country } = req.body
+  const { cityId } = req.body
   try {
-    const packages = await prisma.package
-      .findMany
-      // { where: { country } }
-      ()
+    const packages = await prisma.package.findMany({
+      where: { cityId },
+    })
     res.json({ packages })
   } catch (err) {
     console.error(err.message)
