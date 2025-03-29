@@ -48,7 +48,7 @@ model Booking {
   startDate     DateTime
   endDate       DateTime
   deletedAt     DateTime?
-  status        BookingStatus   @default(PENDING)
+  status        Int             @default(0)
   reviews       Review[]
   payment       Payment?
   guests        Int             @default(1)
@@ -73,7 +73,7 @@ model Payment {
   id        Int                 @id @default(autoincrement())
   bookingId Int                 @unique
   amount    Float
-  status    PaymentStatus       @default(PENDING)
+  status    Int                 @default(0)
 
   booking   Booking             @relation(fields: [bookingId], references: [id])
 }
@@ -91,16 +91,4 @@ enum PackageType {
   STANDARD
   ECONOMY
   LUXURY
-}
-
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELED
-}
-
-enum PaymentStatus {
-  PENDING
-  COMPLETED
-  FAILED
 }
