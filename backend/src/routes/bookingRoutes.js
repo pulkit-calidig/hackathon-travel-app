@@ -21,7 +21,7 @@ router.post("/make", async (req, res) => {
         .status(404)
         .json({ message: "All fields are required for make a booking" })
 
-    if (startDate < Date.now())
+    if (startDate < new Date().toISOString())
       return res
         .status(401)
         .json({ message: "Starting date cannot be in the past !!" })
@@ -120,7 +120,7 @@ router.put("/delete/:id", async (req, res) => {
     await prisma.booking.update({
       where: { id: parseInt(id) },
       data: {
-        status: "CANCELED",
+        status: 2,
         deletedAt: new Date(Date.now()),
       },
     })
