@@ -5,6 +5,7 @@ import unAuthRoutes from "./routes/unAuthRoutes.js"
 import bookingRoutes from "./routes/bookingRoutes.js"
 import reviewRoutes from "./routes/reviewRoutes.js"
 import wishlistRoutes from "./routes/wishlistRoutes.js"
+import paymentRoutes from "./routes/paymentRoutes.js"
 import middleware from "./middleware/middleware.js"
 import cors from "cors"
 
@@ -30,6 +31,7 @@ app.use("/", unAuthRoutes)
 app.use("/booking", middleware, bookingRoutes)
 app.use("/review", middleware, reviewRoutes)
 app.use("/wishlist", middleware, wishlistRoutes)
+app.use("/payment", middleware, paymentRoutes)
 
 // starter
 app.listen(PORT, (req, res) => {
@@ -46,10 +48,11 @@ app.listen(PORT, (req, res) => {
 // : Make completed CRUD apis for booking : DONE
 // : Edit package ids so each type has a separate id : DONE
 // : Manage guests while booking : DONE
-// TODO: Make payment api
-// TODO: Keep id in destination and package related
-// TODO: Change status from string to int
-// TODO: Change package json to new table
+// : Make changes to payment api : DONE
+// : Make changes to booking api : DONE
+// : Keep id in destination and package related : DONE
+// : Change status from string to int : DONE
+// : Change package json to new table : DONE
 // TODO: Validation in all apis
 // : Review only when trip has ended : DONE
 // : Delete columns from user table : NOT NEEDED
