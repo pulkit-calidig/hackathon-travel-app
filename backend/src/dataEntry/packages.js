@@ -2,7 +2,7 @@ import prisma from "../prismaClient.js"
 
 async function main() {
   const countryName = "Japan"
-  const cityName = "Tokyo"
+  const cityName = "Kyoto"
 
   let country = await prisma.country.findUnique({
     where: { name: countryName },
