@@ -6,6 +6,7 @@ import bookingRoutes from "./routes/bookingRoutes.js"
 import reviewRoutes from "./routes/reviewRoutes.js"
 import wishlistRoutes from "./routes/wishlistRoutes.js"
 import paymentRoutes from "./routes/paymentRoutes.js"
+import itineraryRoutes from "./routes/itineraryRoutes.js"
 import middleware from "./middleware/middleware.js"
 import cors from "cors"
 
@@ -32,6 +33,7 @@ app.use("/booking", middleware, bookingRoutes)
 app.use("/review", middleware, reviewRoutes)
 app.use("/wishlist", middleware, wishlistRoutes)
 app.use("/payment", middleware, paymentRoutes)
+app.use("/itinerary", middleware, itineraryRoutes)
 
 // starter
 app.listen(PORT, (req, res) => {
@@ -54,6 +56,10 @@ app.listen(PORT, (req, res) => {
 // : Change status from string to int : DONE
 // : Change package json to new table : DONE
 // TODO: Validation in all apis
+// TODO: Related destination to city
 // : Review only when trip has ended : DONE
 // : Delete columns from user table : NOT NEEDED
 // : Only book a trip if startDate is not in past : DONE
+// : Make itinerary api : DONE
+// : Make itineraryDay table and save day details : DONE
+// : Update itineraryDay model on edit : DONE
