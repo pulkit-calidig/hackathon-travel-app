@@ -16,6 +16,12 @@ router.post("/pay", async (req, res) => {
         .status(404)
         .json({ message: "No booking found with this id !!" })
 
+    if (booking.status !== 0)
+      return res.status(400).json({
+        message:
+          "Cannot accept payment for this booking. Either cancelled or already paid !!",
+      })
+
     try {
       const packagePrice = await prisma.package.findUnique({
         where: { id: booking.packageId },
@@ -35,7 +41,13 @@ router.post("/pay", async (req, res) => {
         await prisma.booking.update({
           where: { id: bookingId },
           data: {
-            status: 2,
+            status: 1,
+          },
+        })
+        await prisma.flight.update({
+          where: { bookingId },
+          data: {
+            status: 1,
           },
         })
       }
