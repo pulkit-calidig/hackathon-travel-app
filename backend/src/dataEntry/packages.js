@@ -1,8 +1,8 @@
 import prisma from "../prismaClient.js"
 
 async function main() {
-  const countryName = "Japan"
-  const cityName = "Kyoto"
+  const countryName = "USA"
+  const cityName = "New York City"
 
   let country = await prisma.country.findUnique({
     where: { name: countryName },
@@ -22,17 +22,17 @@ async function main() {
         create: [
           {
             type: "STANDARD",
-            price: 550.0,
+            price: 1050.0,
             description: `Basic stay and city tour in ${cityName}.`,
           },
           {
             type: "ECONOMY",
-            price: 1000.0,
+            price: 2030.0,
             description: `Affordable stay with essential amenities in ${cityName}.`,
           },
           {
             type: "LUXURY",
-            price: 2000.0,
+            price: 4200.0,
             description: `5-star hotel and exclusive experiences in ${cityName}.`,
           },
         ],
