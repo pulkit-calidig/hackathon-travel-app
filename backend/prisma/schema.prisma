@@ -52,26 +52,79 @@ model Destination {
   name        String
   country     String
   description String?
+  iataCode    String
+  bookings    Booking[]
+  wishlist    Wishlist[]
+}
+
+model Origin {
+  id          Int               @id @default(autoincrement())
+  name        String
+  country     String
+  description String?
+  iataCode    String
   bookings    Booking[]
   wishlist    Wishlist[]
 }
 
 model Booking {
-  id            Int             @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   userId        Int
   packageId     Int
+  originId      Int
   destinationId Int
+  itineraryId   Int?
   startDate     DateTime
   endDate       DateTime
+  status        Int        @default(0)
+  guests        Int        @default(1)
   deletedAt     DateTime?
-  status        Int             @default(0)
+
   reviews       Review[]
   payment       Payment?
-  guests        Int             @default(1)
+  flights       Flight[]
+  itinerary     Itinerary[]
 
-  user          Users           @relation(fields: [userId], references: [id])
-  package       Package         @relation(fields: [packageId], references: [id])
-  destination   Destination     @relation(fields: [destinationId], references: [id])
+  user          Users       @relation(fields: [userId], references: [id])
+  package       Package     @relation(fields: [packageId], references: [id])
+  destination   Destination @relation(fields: [destinationId], references: [id])
+  origin        Origin      @relation(fields: [originId], references: [id])
+}
+
+model Flight {
+  id                  Int       @id @default(autoincrement())
+  bookingId           Int       @unique
+  departureDate       DateTime
+  departureIataCode   String
+  arrivalIataCode     String
+  scheduledDeparture  String
+  scheduledArrival    String
+  status              Int       @default(0)
+  deletedAt           DateTime?
+
+  booking             Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+}
+
+model Itinerary {
+  id          Int      @id @default(autoincrement())
+  bookingId   Int      @unique
+  userId      Int
+  departure   DateTime
+  arrival     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+  days        ItineraryDay[]
+}
+
+model ItineraryDay {
+  id          Int       @id @default(autoincrement())
+  itineraryId Int
+  dayNumber   Int
+  content     String
+  itinerary   Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
 }
 
 model Review {
@@ -98,9 +151,11 @@ model Wishlist {
   id            Int             @id @default(autoincrement())
   userId        Int
   destinationId Int
+  originId      Int
 
   user          Users           @relation(fields: [userId], references: [id])
   destination   Destination     @relation(fields: [destinationId], references: [id])
+  origin        Origin          @relation(fields: [originId], references: [id])
 }
 
 enum PackageType {
