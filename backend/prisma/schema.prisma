@@ -57,6 +57,20 @@ model Destination {
   wishlist    Wishlist[]
 }
 
+model Stop {
+  id          Int      @id @default(autoincrement())
+  bookingId   Int
+  name        String
+  description String?
+  location    String?     // Optional address or landmark
+  latitude    Float       // Required for map
+  longitude   Float       // Required for map
+  order       Int         // Optional: order of the stop
+  createdAt   DateTime    @default(now())
+
+  booking     Booking   @relation(fields: [bookingId], references: [id])
+}
+
 model Origin {
   id          Int               @id @default(autoincrement())
   name        String
@@ -84,6 +98,7 @@ model Booking {
   payment       Payment?
   flights       Flight[]
   itinerary     Itinerary[]
+  stops         Stop[]
 
   user          Users       @relation(fields: [userId], references: [id])
   package       Package     @relation(fields: [packageId], references: [id])
