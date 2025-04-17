@@ -1,4 +1,5 @@
 import { Router } from "express"
+import { bookingValidation } from "../validator/validatons.js"
 import axios from "axios"
 import dotenv from "dotenv"
 import prisma from "../prismaClient.js"
@@ -9,6 +10,15 @@ dotenv.config()
 // create
 router.post("/make", async (req, res) => {
   try {
+    const { error, value } = bookingValidation.validate(req.body)
+
+    if (error) {
+      return res.status(400).json({
+        message: "Validation Error",
+        details: error.details.map((detail) => detail.message),
+      })
+    }
+
     const {
       userId,
       startDate,
@@ -17,7 +27,7 @@ router.post("/make", async (req, res) => {
       originId,
       destinationId,
       guests,
-    } = req.body
+    } = value
 
     if (
       !userId ||
