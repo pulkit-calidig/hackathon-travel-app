@@ -9,3 +9,14 @@ export const bookingValidation = Joi.object({
   destinationId: Joi.number().integer().required(),
   guests: Joi.number().integer().min(1).strict().required(),
 }).options({ abortEarly: false })
+
+export const registerValidation = Joi.object({
+  username: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+}).options({ abortEarly: false })
+
+export const loginValidation = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+}).options({ abortEarly: false })
