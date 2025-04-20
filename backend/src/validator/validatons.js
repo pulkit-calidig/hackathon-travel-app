@@ -20,3 +20,11 @@ export const loginValidation = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 }).options({ abortEarly: false })
+
+export const itineraryValidation = Joi.object({
+  bookingId: Joi.number().integer().required,
+  userId: Joi.number().integer().required,
+  departure: Joi.date().iso().required,
+  arrival: Joi.date().iso().required,
+  days: Joi.required(),
+}).options({ abortEarly: false })
