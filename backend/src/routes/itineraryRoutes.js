@@ -1,4 +1,6 @@
 import { Router } from "express"
+import { itineraryValidation } from "../validator/validatons.js"
+import { validationError } from "../validator/error.js"
 import prisma from "../prismaClient.js"
 
 const router = Router()
@@ -6,7 +8,13 @@ const router = Router()
 // create
 router.post("/create", async (req, res) => {
   try {
-    const { bookingId, userId, departure, arrival, days } = req.body
+    const { error, value } = itineraryValidation.validate(req.body)
+
+    if (error) {
+      return validationError(req, error)
+    }
+
+    const { bookingId, userId, departure, arrival, days } = value
 
     if (!bookingId || !userId || !departure || !arrival || !days)
       return res.status(404).json({ message: "All fields are required !!" })

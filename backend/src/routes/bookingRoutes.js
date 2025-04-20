@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { bookingValidation } from "../validator/validatons.js"
+import { validationError } from "../validator/error.js"
 import axios from "axios"
 import dotenv from "dotenv"
 import prisma from "../prismaClient.js"
@@ -13,10 +14,7 @@ router.post("/make", async (req, res) => {
     const { error, value } = bookingValidation.validate(req.body)
 
     if (error) {
-      return res.status(400).json({
-        message: "Validation Error",
-        details: error.details.map((detail) => detail.message),
-      })
+      return validationError(res, error)
     }
 
     const {

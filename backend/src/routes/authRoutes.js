@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { registerValidation, loginValidation } from "../validator/validatons.js"
+import { validationError } from "../validator/error.js"
 import bcrypt from "bcryptjs"
 import prisma from "../prismaClient.js"
 import jwt from "jsonwebtoken"
@@ -12,10 +13,7 @@ router.post("/register", async (req, res) => {
     const { error, value } = registerValidation.validate(req.body)
 
     if (error) {
-      return res.status(400).json({
-        message: "Validation Error",
-        details: error.details.map((detail) => detail.message),
-      })
+      return validationError(res, error)
     }
     const { username, email, password } = value
 
