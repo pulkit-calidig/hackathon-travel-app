@@ -29,20 +29,20 @@ router.get("/destinations", async (req, res) => {
 })
 
 // get flights
-router.get("/flights", async (req, res) => {
-  const options = {
-    method: "GET",
-    url: `https://api.aviationstack.com/v1/flightsFuture?access_key=${process.env.FLIGHT_APIKEY}`,
-    params: {
-      iataCode: "JFK",
-      type: "departure",
-      date: new Date(startDate).toISOString().split("T")[0],
-    },
-  }
+// router.get("/flights", async (req, res) => {
+//   const options = {
+//     method: "GET",
+//     url: `https://api.aviationstack.com/v1/flightsFuture?access_key=${process.env.FLIGHT_APIKEY}`,
+//     params: {
+//       iataCode: "JFK",
+//       type: "departure",
+//       date: new Date(startDate).toISOString().split("T")[0],
+//     },
+//   }
 
-  const flightResponse = await axios.request(options)
+//   const flightResponse = await axios.request(options)
 
-  console.log(flightResponse)
-})
+//   console.log(flightResponse)
+// })
 
 export default router

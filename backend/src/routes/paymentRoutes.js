@@ -1,11 +1,17 @@
 import { Router } from "express"
+import { paymentValidation } from "../validator/validatons.js"
+import { validationError } from "../validator/error.js"
 import prisma from "../prismaClient.js"
 
 const router = Router()
 
 router.post("/pay", async (req, res) => {
   try {
-    const { bookingId } = req.body
+    const { error, value } = paymentValidation.validate(req.body)
+    if (error) {
+      return validationError(res, error)
+    }
+    const { bookingId } = value
 
     const booking = await prisma.booking.findUnique({
       where: { id: bookingId },

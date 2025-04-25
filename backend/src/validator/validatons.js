@@ -28,3 +28,27 @@ export const itineraryValidation = Joi.object({
   arrival: Joi.date().iso().required,
   days: Joi.required(),
 }).options({ abortEarly: false })
+
+export const paymentValidation = Joi.object({
+  bookingId: Joi.number().integer().required,
+}).options({ abortEarly: false })
+
+export const reviewValidation = Joi.object({
+  userId: Joi.number().integer().required,
+  bookingId: Joi.number().integer().required,
+  rating: Joi.number().required,
+  comment: Joi.string().required,
+}).options({ abortEarly: false })
+
+export const stopValidation = Joi.object({
+  name: Joi.number().required,
+  description: Joi.string().required,
+  latitude: Joi.number().integer().required,
+  longitude: Joi.number().integer().required,
+  order: Joi.number().integer().required,
+}).options({ abortEarly: false })
+
+export const wishlistValidation = Joi.object({
+  userId: Joi.number().integer().required,
+  destinationId: Joi.number().integer().required,
+}).options({ abortEarly: false })

@@ -1,4 +1,6 @@
 import { Router } from "express"
+import { stopValidation } from "../validator/validatons.js"
+import { validationError } from "../validator/error.js"
 import prisma from "../prismaClient.js"
 
 const router = Router()
@@ -6,7 +8,13 @@ const router = Router()
 router.post("/add/:id", async (req, res) => {
   try {
     const { id } = req.params
-    const { name, description, location, latitude, longitude, order } = req.body
+    const { error, value } = stopValidation.validate(req.body)
+
+    if (error) {
+      return validationError(res, error)
+    }
+
+    const { name, description, location, latitude, longitude, order } = value
 
     const booking = await prisma.booking.findUnique({
       where: { id: parseInt(id) },

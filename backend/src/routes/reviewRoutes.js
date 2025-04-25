@@ -1,11 +1,19 @@
 import { Router } from "express"
+import { reviewValidation } from "../validator/validatons.js"
+import { validationError } from "../validator/error.js"
 import prisma from "../prismaClient.js"
 
 const router = Router()
 
 router.post("/post", async (req, res) => {
   try {
-    const { userId, bookingId, rating, comment } = req.body
+    const { error, value } = reviewValidation.validate(req.body)
+
+    if (error) {
+      return validationError(res, error)
+    }
+
+    const { userId, bookingId, rating, comment } = value
 
     if (!rating || !comment || !bookingId) {
       return res.status(404).json({

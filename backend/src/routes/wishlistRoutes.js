@@ -1,11 +1,19 @@
 import { Router } from "express"
+import { wishlistValidation } from "../validator/validatons.js"
+import { validationError } from "../validator/error.js"
 import prisma from "../prismaClient.js"
 
 const router = Router()
 
 router.post("/add", async (req, res) => {
   try {
-    const { userId, destinationId } = req.body
+    const { error, value } = wishlistValidation.validate(req.body)
+
+    if (error) {
+      return validationError(res, error)
+    }
+
+    const { userId, destinationId } = value
 
     if (!userId || !destinationId) {
       return res
